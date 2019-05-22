@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 寄生式继承
+    // 原理：在原型式继承的基础上，为将要构造出的子类对象添加属性和方法 (相当于这些属性寄生在这个对象上)
+    function createObj(prototype) {
+      // 通过调用函数创建一个新的对象
+      var clone = Object.create(prototype);
+      // 以某种方式来增强这个对象
+      clone.sayHi = function () {
+        console.log("hi");
+      }
+      // 返回这个对象
+      return clone;
+    }
+
+    // 测试
+    var father = {name: 'kuang', friends: ['a', 'b']};
+    var son = createObj(father);
+
+
+    // 优点
+    // 再不用创建构造函数的情况下，实现了原型链继承，代码量减少一部分
+    // 可以给备份的对象添加一些属性
+
+    // 缺点
+    // 类似构造函数一样，创建寄生的方法需要在clone对象上面添加一些想要的属性，这些属性是放在clone上面的一些私有的属性
+    // 一些引用数据操作的时候会出问题，两个实例会公用继承实例的引用数据类
+    // 谨慎定义方法，以免定义方法也继承对象原型的方法重名
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+</body>
+</html>

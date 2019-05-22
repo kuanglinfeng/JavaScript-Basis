@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 寄生组合式继承
+    // 原理1：将父类的原型挂在到一个空对象的__proto__上 -> 再将这个对象的constructor指向SubType(因为它将替换SubType的原型) -> 替换SubType的原型
+    function inheritPrototype(SubType, SuperType) {
+      // prototype: {__proto__: SuperType.prototype}
+      var prototype = Object.create(SuperType.prototype);
+      // 相当于让下一步的SubType.prototype.constructor = SubType
+      // prototype: {constructor: SubType, __proto__: SuperType.prototype}
+      prototype.constructor = SubType;
+      SubType.prototype = prototype;
+    }
+
+    function Father(name) {
+      this.name = name;
+      this.friends = ['a', 'b'];
+    }
+    Father.prototype.getName = function () {
+      return this.name;
+    }
+
+    function Son(name, age) {
+      // 原理2：借用构造函数，相当于拷贝一份父类的一些属性到子类上
+      Father.call(this, name);
+      this.age = age;
+    }
+
+    inheritPrototype(Son, Father);
+    Son.prototype.sayAge = function () {
+      console.log(this.age);
+    }
+
+    // 优点：
+    // 在少一次实例化父类的情况下，实现了原型链继承和借用构造函数
+    // 减少了原型链查找的次数（子类直接继承超类的prototype，而不是父类的实例）
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+</body>
+</html>

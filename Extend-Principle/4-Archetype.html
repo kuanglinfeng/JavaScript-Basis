@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 原型式继承
+    // 原理：通过Object.create()方法来创建一个指定原型的实例，这实例的__proto__指向这个原型对象
+    function createObj(prototype) {
+      var F = function () {};
+      // 这行代码会把F的原型重写 导致原有的原型上的constructor抹掉 
+      F.prototype = prototype;
+      // 如果想找到 new F() 的constructor 发现找到的是 prototype 上的constructor
+      return new F();
+    }
+    var father = {name: 'baba', friends: ['a', 'b']};
+    // 这行代码就是原型式继承 和原型链继承的不同之处在于 省去了构造函数这一步
+    var son1 = createObj(father);
+    // 或 var son = Object.create(father);
+    var son2 = createObj(father);
+
+    son1.friends.push('c');
+    console.log(son1);
+    console.log(son2);
+
+
+    // 优点
+    // 在不用创建构造函数的情况下，实现了原型链继承，代码量减少一部分
+  
+    // 缺点
+    // 一些引用数据操作的时候会出问题，两个实例会公用继承实例的引用数据类
+    // 谨慎定义方法，以免定义方法也继承对象原型的方法重名
+    // 无法直接给父级构造函数使用参数
+
+
+
+
+
+  
+  
+  </script>
+</body>
+</html>

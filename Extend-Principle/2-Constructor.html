@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 借用构造函数
+    // 原理：在子类的构造函数中使用父类的构造函数，并将子类的this传入父类的构造函数
+    function Father(firstName) {  
+      this.firstName = firstName;
+    }
+
+    Father.prototype.getFirstName = function () {
+      return this.firstName;
+    }
+
+    function Son(name, firstName) {
+      // 执行爸爸类的构造函数
+      // var this = {}
+      // 相当于借用爸爸类的构造函数来为自己绑定属性 同时可以传递参数
+      Father.call(this, firstName);
+      // 上面一行代码就是借用构造函数继承的核心代码
+      this.name = name;
+    }
+    Son.prototype.getName = function () {
+      return this.name;
+    }
+
+    // 测试
+    var s1 = new Son("Flinn", "Kuang");
+
+    // error  getFirstName is not a function （这就是借用构造函数的一大缺陷，无法继承父类的方法）
+    console.log(s1.getName() + s1.getFirstName()); 
+
+
+    // 优点：
+    // 解决了原型链继承的 引用类型操作问题
+    // 解决了父类传递参数问题
+
+    // 缺点：
+    // 仅仅使用借用构造函数模式继承，无法摆脱构造函数。方法在构造函数中定义复用不可谈
+    // 对于超类的原型定义的方法对于子类是不可使用的，子类的实例只是得到了父类的this绑定的属性 考虑到这些缺点，单独使用借用构造函数也是很少使用的
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </script>
+</body>
+</html>

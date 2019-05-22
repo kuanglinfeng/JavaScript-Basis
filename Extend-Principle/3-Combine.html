@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 组合继承：将原型链继承和借用构造函数联合在一起来实现继承
+    // 原理：使用原型链的继承实现，通过原型查找功能来满足原型链共享方法
+    //      使用借用构造函数方法，使用实例备份父类共享引用类型备份
+
+    function Father(firstName) {
+      this.firstName = firstName;
+      this.friends = ['a', 'b'];
+    }
+    Father.prototype.getFirstName = function () {
+      return this.firstName;
+    }
+
+    function Son(firstNamem, age) {
+      // 借用构造函数 继承属性
+      Father.call(this, firstNamem);
+      this.age = age;
+    }
+    // 原型链继承 继承方法
+    Son.prototype = new Father();
+    Son.prototype.constructor = Son;
+    Son.prototype.getAge = function () {
+      return this.age;
+    }
+
+    // 测试
+    var s1 = new Son('Kuang', 18);
+    console.log(s1);
+
+
+
+    // 优点
+    // 解决了原型链继承引用类型的实例操作导致引用改变
+    // 解决了借构造函数继承方式的，父类原型子类实例可以使用
+    
+    // 缺点
+    // 实例会有父类的构造函数构造出的的一些this属性 子类的原型上也会有一份重复构造的属性
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+</body>
+</html>
